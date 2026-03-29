@@ -1,13 +1,10 @@
 
-## `README.md`
-
-```markdown
 # RAG Document Chatbot
-
+```
 An intelligent chatbot that answers questions strictly based on uploaded documents using Retrieval-Augmented Generation (RAG). Built with FastAPI, LangChain, and Groq LLM.
 
 ---
-
+```
 ## 🎯 Features
 
 - ✅ Upload PDF or DOCX documents
@@ -22,10 +19,11 @@ An intelligent chatbot that answers questions strictly based on uploaded documen
 - ✅ Docker support
 
 ---
-
+```
+```
 ## 🏗 Architecture Overview
 
-```
+
 User Question
       ↓
 FastAPI endpoint (/chat)
@@ -44,7 +42,7 @@ Answer + Sources + Confidence Score
 ```
 
 ---
-
+```
 ## 🛠 Tech Stack
 
 | Component | Technology | Reason |
@@ -57,9 +55,10 @@ Answer + Sources + Confidence Score
 | Document Parsing | PyPDF + python-docx | Supports PDF and DOCX |
 
 ---
-
+```
+```
 ## 🧠 Technical Explanation
-
+```
 ### RAG Pipeline
 1. **Document ingestion** — PDF/DOCX is loaded and split into chunks of 512 characters with 100 character overlap
 2. **Embedding** — each chunk is converted to a vector using `all-mpnet-base-v2` running locally
@@ -87,10 +86,9 @@ Based on the minimum similarity distance score:
 - `low` — score >= 1.5
 
 ---
-
+```
 ## 📦 Libraries Used
 
-```
 fastapi          — REST API framework
 uvicorn          — ASGI server
 langchain-core   — LangChain core
