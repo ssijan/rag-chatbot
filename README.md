@@ -3,7 +3,6 @@
 ```
 An intelligent chatbot that answers questions strictly based on uploaded documents using Retrieval-Augmented Generation (RAG). Built with FastAPI, LangChain, and Groq LLM.
 
----
 ```
 ## 🎯 Features
 
@@ -17,9 +16,8 @@ An intelligent chatbot that answers questions strictly based on uploaded documen
 - ✅ Prompt injection protection
 - ✅ Request/response logging
 - ✅ Docker support
-
----
 ```
+---
 ```
 ## 🏗 Architecture Overview
 
@@ -40,9 +38,8 @@ Groq LLM (llama-3.3-70b-versatile) + Strict Prompt
       ↓
 Answer + Sources + Confidence Score
 ```
-
----
 ```
+---
 ## 🛠 Tech Stack
 
 | Component | Technology | Reason |
@@ -54,7 +51,6 @@ Answer + Sources + Confidence Score
 | RAG Framework | LangChain | Industry standard |
 | Document Parsing | PyPDF + python-docx | Supports PDF and DOCX |
 
----
 ```
 ```
 ## 🧠 Technical Explanation
