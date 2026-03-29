@@ -17,11 +17,9 @@ An intelligent chatbot that answers questions strictly based on uploaded documen
 - ✅ Request/response logging
 - ✅ Docker support
 ```
----
 ```
 ## 🏗 Architecture Overview
-
-
+```
 User Question
       ↓
 FastAPI endpoint (/chat)
@@ -38,8 +36,6 @@ Groq LLM (llama-3.3-70b-versatile) + Strict Prompt
       ↓
 Answer + Sources + Confidence Score
 ```
-```
----
 ## 🛠 Tech Stack
 
 | Component | Technology | Reason |
@@ -50,11 +46,11 @@ Answer + Sources + Confidence Score
 | Vector DB | ChromaDB | Local, easy setup |
 | RAG Framework | LangChain | Industry standard |
 | Document Parsing | PyPDF + python-docx | Supports PDF and DOCX |
+```
 
 ```
-```
 ## 🧠 Technical Explanation
-```
+
 ### RAG Pipeline
 1. **Document ingestion** — PDF/DOCX is loaded and split into chunks of 512 characters with 100 character overlap
 2. **Embedding** — each chunk is converted to a vector using `all-mpnet-base-v2` running locally
@@ -80,8 +76,7 @@ Based on the minimum similarity distance score:
 - `high` — score < 1.0
 - `medium` — score < 1.5
 - `low` — score >= 1.5
-
----
+```
 ```
 ## 📦 Libraries Used
 
@@ -97,8 +92,7 @@ pypdf            — PDF parsing
 python-docx      — DOCX parsing
 python-dotenv    — Environment variables
 ```
-
----
+```
 
 ## 🚀 Setup and Run
 
@@ -278,10 +272,10 @@ Setting temperature to 0 makes the LLM fully deterministic — it always picks t
 ---
 
 ## 👨‍💻 Author
-Built as a technical assessment for AI Backend Engineer position.
 ```
+Built as a technical assessment for AI Backend Engineer position.
 
----
+```
 
 ## Create `.env.example` file
 ```bash
