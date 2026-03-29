@@ -1,15 +1,8 @@
 
----
-
-## `README.md`
-
-```markdown
 # RAG Document Chatbot
-
+```
 An intelligent chatbot that answers questions strictly based on uploaded documents using Retrieval-Augmented Generation (RAG). Built with FastAPI, LangChain, and Groq LLM.
-
----
-
+```
 ## 🎯 Features
 
 - ✅ Upload PDF or DOCX documents
@@ -23,10 +16,8 @@ An intelligent chatbot that answers questions strictly based on uploaded documen
 - ✅ Request/response logging
 - ✅ Docker support
 
----
-
+  
 ## 🏗 Architecture Overview
-
 ```
 User Question
       ↓
@@ -44,9 +35,6 @@ Groq LLM (llama-3.3-70b-versatile) + Strict Prompt
       ↓
 Answer + Sources + Confidence Score
 ```
-
----
-
 ## 🛠 Tech Stack
 
 | Component | Technology | Reason |
@@ -57,8 +45,6 @@ Answer + Sources + Confidence Score
 | Vector DB | ChromaDB | Local, easy setup |
 | RAG Framework | LangChain | Industry standard |
 | Document Parsing | PyPDF + python-docx | Supports PDF and DOCX |
-
----
 
 ## 🧠 Technical Explanation
 
@@ -88,10 +74,8 @@ Based on the minimum similarity distance score:
 - `medium` — score < 1.5
 - `low` — score >= 1.5
 
----
 
 ## 📦 Libraries Used
-
 ```
 fastapi          — REST API framework
 uvicorn          — ASGI server
@@ -105,8 +89,6 @@ pypdf            — PDF parsing
 python-docx      — DOCX parsing
 python-dotenv    — Environment variables
 ```
-
----
 
 ## 🚀 Setup and Run
 
@@ -238,21 +220,25 @@ curl -X POST "http://127.0.0.1:8000/chat" \
 ## 🎨 Design Decisions
 
 ### Why Groq instead of OpenAI?
+```
 Groq provides a completely free tier with no credit card required. The `llama-3.3-70b-versatile` model delivers excellent performance comparable to GPT-4 for document Q&A tasks.
-
+```
 ### Why local embeddings instead of API embeddings?
+```
 Using `all-mpnet-base-v2` from HuggingFace runs completely locally with no API calls, no rate limits, and no cost. It also provides better semantic accuracy than smaller API-based models.
-
+```
 ### Why MMR retrieval instead of basic similarity?
+```
 Basic similarity search can return duplicate or near-duplicate chunks. MMR balances relevance with diversity, ensuring the LLM receives varied context from different parts of the document.
-
+```
 ### Why ChromaDB?
+```
 ChromaDB runs locally with zero configuration, persists data between restarts, and integrates natively with LangChain. No external service required.
-
+```
 ### Why temperature = 0?
+```
 Setting temperature to 0 makes the LLM fully deterministic — it always picks the most likely token, eliminating random creative outputs that could cause hallucination.
-
----
+```
 
 ## ⏱ Estimated Development Time
 
@@ -275,21 +261,21 @@ Setting temperature to 0 makes the LLM fully deterministic — it always picks t
 ## 📸 Screenshots
 
 ### API Documentation (Swagger UI)
-![Swagger UI](screenshots/swagger.png)
+![Swagger UI](screenshots/Demo.png)
 
 ### Upload Document
 ![Upload](screenshots/upload.png)
 
 ### Chat Response
-![Chat](screenshots/chat.png)
+![Chat](screenshots/chat1.png)
+![Chat](screenshots/chat2.png)
 
 ---
 
 ## 👨‍💻 Author
+```
 Built as a technical assessment for AI Backend Engineer position.
 ```
-
----
 
 ## Create `.env.example` file
 ```bash
@@ -304,8 +290,3 @@ Save with `CTRL+X` → `Y` → `Enter`
 
 ---
 
-## Take screenshots for README
-
-```bash
-mkdir screenshots
-```
