@@ -2,7 +2,6 @@
 # RAG Document Chatbot
 ```
 An intelligent chatbot that answers questions strictly based on uploaded documents using Retrieval-Augmented Generation (RAG). Built with FastAPI, LangChain, and Groq LLM.
-
 ```
 ## 🎯 Features
 
@@ -16,8 +15,8 @@ An intelligent chatbot that answers questions strictly based on uploaded documen
 - ✅ Prompt injection protection
 - ✅ Request/response logging
 - ✅ Docker support
-```
-```
+
+  
 ## 🏗 Architecture Overview
 ```
 User Question
@@ -46,9 +45,7 @@ Answer + Sources + Confidence Score
 | Vector DB | ChromaDB | Local, easy setup |
 | RAG Framework | LangChain | Industry standard |
 | Document Parsing | PyPDF + python-docx | Supports PDF and DOCX |
-```
 
-```
 ## 🧠 Technical Explanation
 
 ### RAG Pipeline
@@ -76,10 +73,10 @@ Based on the minimum similarity distance score:
 - `high` — score < 1.0
 - `medium` — score < 1.5
 - `low` — score >= 1.5
-```
-```
-## 📦 Libraries Used
 
+
+## 📦 Libraries Used
+```
 fastapi          — REST API framework
 uvicorn          — ASGI server
 langchain-core   — LangChain core
@@ -91,7 +88,6 @@ chromadb         — Vector database
 pypdf            — PDF parsing
 python-docx      — DOCX parsing
 python-dotenv    — Environment variables
-```
 ```
 
 ## 🚀 Setup and Run
@@ -224,21 +220,25 @@ curl -X POST "http://127.0.0.1:8000/chat" \
 ## 🎨 Design Decisions
 
 ### Why Groq instead of OpenAI?
+```
 Groq provides a completely free tier with no credit card required. The `llama-3.3-70b-versatile` model delivers excellent performance comparable to GPT-4 for document Q&A tasks.
-
+```
 ### Why local embeddings instead of API embeddings?
+```
 Using `all-mpnet-base-v2` from HuggingFace runs completely locally with no API calls, no rate limits, and no cost. It also provides better semantic accuracy than smaller API-based models.
-
+```
 ### Why MMR retrieval instead of basic similarity?
+```
 Basic similarity search can return duplicate or near-duplicate chunks. MMR balances relevance with diversity, ensuring the LLM receives varied context from different parts of the document.
-
+```
 ### Why ChromaDB?
+```
 ChromaDB runs locally with zero configuration, persists data between restarts, and integrates natively with LangChain. No external service required.
-
+```
 ### Why temperature = 0?
+```
 Setting temperature to 0 makes the LLM fully deterministic — it always picks the most likely token, eliminating random creative outputs that could cause hallucination.
-
----
+```
 
 ## ⏱ Estimated Development Time
 
@@ -289,9 +289,3 @@ GROQ_API_KEY=your_groq_api_key_here
 Save with `CTRL+X` → `Y` → `Enter`
 
 ---
-
-## Take screenshots for README
-
-```bash
-mkdir screenshots
-```
