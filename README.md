@@ -275,11 +275,12 @@ Setting temperature to 0 makes the LLM fully deterministic — it always picks t
 ## 👨‍💻 Author
 ```
 Built as a technical assessment for AI Backend Engineer position.
+
 ```
 
-## Create `.env.example` file
+## Create `.env` file
 ```bash
-nano .env.example
+nano .env
 ```
 
 Paste:
@@ -289,4 +290,3 @@ GROQ_API_KEY=your_groq_api_key_here
 Save with `CTRL+X` → `Y` → `Enter`
 
 ---
-
