@@ -278,15 +278,3 @@ Built as a technical assessment for AI Backend Engineer position.
 
 ```
 
-## Create `.env` file
-```bash
-nano .env
-```
-
-Paste:
-```
-GROQ_API_KEY=your_groq_api_key_here
-```
-Save with `CTRL+X` → `Y` → `Enter`
-
----
