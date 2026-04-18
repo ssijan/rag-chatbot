@@ -3,6 +3,9 @@
 ```
 An intelligent chatbot that answers questions strictly based on uploaded documents using Retrieval-Augmented Generation (RAG). Built with FastAPI, LangChain, and Groq LLM.
 ```
+## 📺 Project Walkthrough
+[![Watch the Demo](https://youtu.be/wSX3JQ_98gY/hqdefault.jpg)](https://youtu.be/wSX3JQ_98gY)
+
 ## 🎯 Features
 
 - ✅ Upload PDF or DOCX documents
