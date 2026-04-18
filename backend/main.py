@@ -3,9 +3,9 @@ import logging
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from app.rag import process_document, get_answer
-from app.memory import clear_memory
-from app.config import DOCUMENTS_PATH
+from backend.rag import process_document, get_answer
+from backend.memory import clear_memory
+from backend.config import DOCUMENTS_PATH
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -16,7 +16,8 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
     allow_methods=["*"],
-    allow_headers=["*"]
+    allow_headers=["*"],
+    allow_credentials=True
 )
 
 
@@ -31,11 +32,6 @@ class ChatResponse(BaseModel):
     similarity_scores: list
     session_id: str
     confidence: str
-
-
-@app.get("/")
-def root():
-    return {"message": "RAG Document Chatbot is running!"}
 
 
 @app.post("/upload")

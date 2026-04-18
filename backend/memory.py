@@ -1,4 +1,4 @@
-from app.rag import chat_histories
+from backend.rag import chat_histories
 
 def get_memory(session_id: str):
     if session_id not in chat_histories:

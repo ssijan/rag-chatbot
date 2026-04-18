@@ -3,3 +3,24 @@ venv/
 __pycache__/
 *.pyc
 chroma_db/
+documents/
+.DS_Store
+*.log
+*.swp
+*.swo
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+frontend/.env.local
+frontend/.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS
+Thumbs.db

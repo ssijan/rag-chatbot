@@ -1,0 +1,34 @@
+.confidence-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  width: fit-content;
+}
+
+.confidence-badge .material-icons {
+  font-size: 0.9rem;
+}
+
+.confidence-very-high {
+  background: rgba(63, 185, 80, 0.2);
+  color: var(--accent-success);
+}
+
+.confidence-high {
+  background: rgba(88, 166, 255, 0.2);
+  color: var(--accent-primary);
+}
+
+.confidence-medium {
+  background: rgba(217, 153, 34, 0.2);
+  color: var(--accent-warning);
+}
+
+.confidence-low {
+  background: rgba(248, 81, 73, 0.2);
+  color: var(--accent-danger);
+}

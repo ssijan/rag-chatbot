@@ -8,13 +8,17 @@ from langchain_community.vectorstores import Chroma
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.messages import HumanMessage, AIMessage
 from langchain_core.output_parsers import StrOutputParser
-from app.config import (
-    GROQ_API_KEY, CHROMA_DB_PATH, CHUNK_SIZE,
+from backend.config import (
+    GROQ_API_KEY, CHROMA_DB_PATH, CHUNK_SIZE, DOCUMENTS_PATH,
     CHUNK_OVERLAP, TOP_K_RESULTS, MODEL_NAME, EMBEDDING_MODEL
 )
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+for path in [CHROMA_DB_PATH, DOCUMENTS_PATH]:
+    if not os.path.exists(path):
+        os.makedirs(path, exist_ok=True)
 
 chat_histories = {}
 vectorstore = None
@@ -68,7 +72,7 @@ def get_answer(question: str, session_id: str):
     global vectorstore, chat_histories
 
     # Prompt injection guard
-    banned = ["ignore previous", "forget instructions", "act as", "jailbreak", "disregard"]
+    banned = ["ignore previous", "forget instructions", "act as","act like", "jailbreak", "disregard"]
     if any(phrase in question.lower() for phrase in banned):
         return {
             "answer": "This information is not present in the provided document.",
@@ -85,7 +89,7 @@ def get_answer(question: str, session_id: str):
             "confidence": "no_document"
         }
 
-    # MMR retriever — better relevance + diversity
+
     mmr_retriever = vectorstore.as_retriever(
         search_type="mmr",
         search_kwargs={
@@ -94,20 +98,18 @@ def get_answer(question: str, session_id: str):
         }
     )
 
-    # Get similarity scores for display
+
     retriever_with_scores = vectorstore.similarity_search_with_score(
         question, k=TOP_K_RESULTS
     )
 
-    # Build sources from actual retrieved docs
     score_map = {}
     for doc, score in retriever_with_scores:
         score_map[doc.page_content[:50]] = round(float(score), 4)
 
-    # Get MMR docs (better quality)
+
     mmr_docs = mmr_retriever.invoke(question)
 
-    # Build sources from MMR results with scores
     sources = []
     similarity_scores = []
     for doc in mmr_docs:
@@ -119,13 +121,12 @@ def get_answer(question: str, session_id: str):
         })
         similarity_scores.append(score)
 
-    # Build context from MMR docs
     context = "\n\n".join([
         f"[Page {doc.metadata.get('page', '?')}]\n{doc.page_content}"
         for doc in mmr_docs
     ])
 
-    # Build chat history
+
     if session_id not in chat_histories:
         chat_histories[session_id] = []
     history = chat_histories[session_id]
@@ -137,7 +138,7 @@ def get_answer(question: str, session_id: str):
         elif isinstance(msg, AIMessage):
             history_text += f"Assistant: {msg.content}\n"
 
-    # Groq LLM
+    
     llm = ChatGroq(
         model=MODEL_NAME,
         api_key=GROQ_API_KEY,
@@ -166,7 +167,6 @@ Chat History:
         ("human", "{question}")
     ])
 
-    # Build and run chain
     chain = prompt | llm | StrOutputParser()
 
     answer = chain.invoke({
@@ -186,7 +186,7 @@ Chat History:
     else:
         confidence = "low"
 
-    # Update memory
+
     history.append(HumanMessage(content=question))
     history.append(AIMessage(content=answer))
 

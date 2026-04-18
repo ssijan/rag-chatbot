@@ -1,0 +1,151 @@
+.message-bubble-wrapper {
+  display: flex;
+  gap: 0.625rem;
+  align-items: flex-start;
+  animation: slideInUp 0.3s ease;
+  margin-bottom: 0.75rem;
+}
+
+.message-bubble-wrapper.user {
+  justify-content: flex-end;
+}
+
+.message-bubble-wrapper.bot {
+  justify-content: flex-start;
+}
+
+.message-bubble-wrapper.user .message-avatar {
+  order: 2;
+}
+
+.message-bubble-wrapper.user .message-bubble-content {
+  order: 1;
+}
+
+.message-bubble-wrapper.bot .message-avatar {
+  order: 1;
+}
+
+.message-bubble-wrapper.bot .message-bubble-content {
+  order: 2;
+}
+
+.message-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--border-radius);
+  background: var(--accent-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.15rem;
+  flex-shrink: 0;
+  margin-top: 0.25rem;
+}
+
+.message-avatar.user {
+  background: #58a6ff;
+}
+
+.message-bubble-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  max-width: 70%;
+}
+
+.message-bubble-wrapper.user .message-bubble-content {
+  align-items: flex-end;
+}
+
+.message-bubble {
+  padding: 0.75rem 1rem;
+  border-radius: var(--border-radius-lg);
+  line-height: 1.6;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.message-bubble.bot {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.message-bubble.user {
+  background: linear-gradient(135deg, var(--accent-primary), #1f6feb);
+  color: white;
+  box-shadow: 0 4px 12px rgba(88, 166, 255, 0.3);
+}
+
+.message-text {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.message-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.5rem 0 0.5rem;
+  font-size: 0.7rem;
+}
+
+.message-time {
+  color: var(--text-secondary);
+}
+
+.message-bubble-wrapper.user .message-meta {
+  justify-content: flex-end;
+}
+
+.message-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .message-bubble-content {
+    max-width: 85%;
+  }
+
+  .message-bubble {
+    padding: 0.65rem 0.85rem;
+    font-size: 0.9rem;
+  }
+
+  .message-avatar {
+    width: 32px;
+    height: 32px;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .message-bubble-wrapper {
+    gap: 0.5rem;
+  }
+
+  .message-bubble-content {
+    max-width: 90%;
+  }
+
+  .message-avatar {
+    width: 28px;
+    height: 28px;
+    font-size: 1rem;
+  }
+
+  .message-bubble {
+    padding: 0.6rem 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  .message-text {
+    font-size: 0.85rem;
+  }
+}
