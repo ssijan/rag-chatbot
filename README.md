@@ -246,189 +246,6 @@ docker-compose down
 docker-compose down -v
 ```
 
-**Access at:** `http://localhost`
-
----
-
-## 🌐 Production Deployment (Go Live)
-
-### Option 1: Vercel (Frontend) + Heroku (Backend)
-
-#### A. Deploy Backend to Heroku
-
-```bash
-# Install Heroku CLI
-curl https://cli-assets.heroku.com/install.sh | sh
-heroku login
-
-# Create app
-heroku create rag-chatbot-api
-
-# Set environment variable
-heroku config:set GROQ_API_KEY=your_groq_api_key_here
-
-# Add Procfile
-echo 'web: gunicorn -w 4 -k uvicorn.workers.UvicornWorker backend.main:app' > Procfile
-
-# Deploy
-git push heroku main
-```
-
-**Backend URL:** `https://rag-chatbot-api.herokuapp.com`
-
-#### B. Deploy Frontend to Vercel
-
-```bash
-# Install Vercel CLI
-npm i -g vercel
-
-# Deploy
-cd frontend
-vercel
-
-# Set environment variable during deployment:
-# VITE_API_BASE = https://rag-chatbot-api.herokuapp.com
-```
-
-**Frontend URL:** `https://rag-chatbot.vercel.app`
-
----
-
-### Option 2: AWS EC2 + Nginx
-
-```bash
-# 1. Launch Ubuntu 22.04 EC2 instance
-# 2. SSH into instance
-ssh -i key.pem ubuntu@your-instance-ip
-
-# 3. Install dependencies
-sudo apt update && sudo apt install -y \
-  python3.10-venv \
-  nodejs npm \
-  nginx \
-  git \
-  supervisor
-
-# 4. Clone repository
-cd /opt
-sudo git clone https://github.com/yourusername/rag-chatbot.git
-cd rag-chatbot
-
-# 5. Backend setup
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt gunicorn
-
-# Create .env
-echo 'GROQ_API_KEY=your_key' | sudo tee .env
-
-# 6. Setup Supervisor for backend (auto-restart)
-sudo tee /etc/supervisor/conf.d/rag-backend.conf > /dev/null << 'EOF'
-[program:rag-backend]
-directory=/opt/rag-chatbot
-command=/opt/rag-chatbot/venv/bin/gunicorn -w 4 -k uvicorn.workers.UvicornWorker -b 127.0.0.1:8000 backend.main:app
-autostart=true
-autorestart=true
-EOF
-
-sudo supervisorctl reread
-sudo supervisorctl update
-sudo supervisorctl start rag-backend
-
-# 7. Frontend build
-cd frontend
-npm install
-npm run build
-
-# 8. Setup Nginx reverse proxy
-sudo tee /etc/nginx/sites-available/default > /dev/null << 'EOF'
-server {
-    listen 80;
-    server_name your-domain.com;
-
-    # Frontend
-    location / {
-        root /opt/rag-chatbot/frontend/dist;
-        try_files $uri /index.html;
-    }
-
-    # Backend API
-    location /api {
-        proxy_pass http://127.0.0.1:8000;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host $host;
-        proxy_cache_bypass $http_upgrade;
-    }
-}
-EOF
-
-sudo nginx -t
-sudo systemctl restart nginx
-
-# 9. Setup SSL with Let's Encrypt
-sudo apt install certbot python3-certbot-nginx
-sudo certbot --nginx -d your-domain.com
-```
-
-**Access at:** `https://your-domain.com`
-
----
-
-### Option 3: DigitalOcean App Platform
-
-1. Push code to GitHub
-2. Connect GitHub repo to DigitalOcean
-3. Create `app.yaml`:
-
-```yaml
-name: rag-chatbot
-services:
-- name: backend
-  github:
-    repo: yourusername/rag-chatbot
-    branch: main
-  build_command: pip install -r requirements.txt
-  run_command: gunicorn -w 4 -k uvicorn.workers.UvicornWorker backend.main:app
-  envs:
-  - key: GROQ_API_KEY
-    scope: RUN_TIME
-
-- name: frontend
-  github:
-    repo: yourusername/rag-chatbot
-    branch: main
-    source_dir: frontend
-  build_command: npm install && npm run build
-  http_port: 3000
-
-static_sites:
-- name: frontend
-  source_dir: frontend/dist
-  routes:
-  - path: /
-```
-
-4. Push `app.yaml` and deploy
-
----
-
-### Option 4: Docker (Self-Hosted)
-
-```bash
-# Build and push to Docker Hub
-docker build -t yourusername/rag-backend:latest -f Dockerfile .
-docker push yourusername/rag-backend:latest
-
-# On your server
-docker run -d \
-  -e GROQ_API_KEY=your_key \
-  -p 8000:8000 \
-  --name rag-backend \
-  yourusername/rag-backend:latest
-```
-
 ---
 
 ## 📋 Production Checklist
@@ -506,11 +323,6 @@ kill -9 <PID>
 
 ---
 
-## 🐳 Docker Setup
-
-```bash
-docker-compose up --build
-```
 
 ---
 
@@ -613,25 +425,6 @@ ChromaDB runs locally with zero configuration, persists data between restarts, a
 Setting temperature to 0 makes the LLM fully deterministic — it always picks the most likely token, eliminating random creative outputs that could cause hallucination.
 ```
 
-## ⏱ Estimated Development Time
-
-| Task | Time |
-|---|---|
-| Project setup and architecture | 1 hour |
-| Document loader and chunker | 1 hour |
-| Embeddings and ChromaDB | 1 hour |
-| RAG chain and hallucination guard | 2 hours |
-| Conversation memory | 1 hour |
-| FastAPI endpoints | 1.5 hours |
-| MMR retrieval and confidence scoring | 1 hour |
-| Docker setup | 30 minutes |
-| Backend-Frontend Integration | 1 hour |
-| Testing and debugging | 2 hours |
-| README and documentation | 1 hour |
-| **Total** | **~13 hours** |
-
----
-
 ## 📸 Screenshots
 
 ### Chat Interface
@@ -655,19 +448,10 @@ Setting temperature to 0 makes the LLM fully deterministic — it always picks t
 
 ---
 
-## 📞 Support & Questions
-
-For deployment issues or questions:
-1. Check the Troubleshooting section above
-2. Review logs: `docker-compose logs -f`
-3. Test health endpoint: `curl http://localhost:8000/health`
-
----
 
 ## 📄 License
 
 Open source. Built with ❤️ for RAG excellence.
 
----
 
-**Ready to deploy?** Start with Option 1 (Vercel + Heroku) for fastest setup! 🚀
+
