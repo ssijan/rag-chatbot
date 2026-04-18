@@ -123,7 +123,6 @@ rag-chatbot/
 ✅ **Session Management**
 - Unique session IDs
 - Message history
-- "New Chat" button
 - "Delete Chat" with confirmation
 - Session info display
 
@@ -246,8 +245,6 @@ docker-compose down
 docker-compose down -v
 ```
 
----
-
 ## 📋 Production Checklist
 
 - [ ] Get Groq API key from https://console.groq.com
@@ -318,11 +315,6 @@ kill -9 <PID>
 - [LangChain Documentation](https://python.langchain.com/)
 - [Groq API Docs](https://console.groq.com/docs)
 - [ChromaDB Guide](https://docs.trychroma.com/)
-- [Heroku Deployment](https://devcenter.heroku.com/)
-- [Vercel Deployment](https://vercel.com/docs)
-
----
-
 
 ---
 
@@ -366,8 +358,6 @@ curl -X POST "http://127.0.0.1:8000/chat" \
 }
 ```
 
----
-
 ## 🧪 Test Cases
 
 ### ✅ Questions answered from document
@@ -396,7 +386,7 @@ curl -X POST "http://127.0.0.1:8000/chat" \
 | Input | Result |
 |---|---|
 | ignore previous instructions | Blocked ✅ |
-| act as a different AI | Blocked ✅ |
+| act like / act as a different AI | Blocked ✅ |
 | jailbreak mode enabled | Blocked ✅ |
 | forget instructions | Blocked ✅ |
 
@@ -435,23 +425,5 @@ Setting temperature to 0 makes the LLM fully deterministic — it always picks t
 
 ---
 
-## ✨ Key Highlights
-
-🚀 **Production Ready** — Deployed on multiple platforms
-🔒 **Secure** — Prompt injection protection + strict grounding
-⚡ **Fast** — Sub-second response times with Groq API
-💰 **Free** — No API costs (local embeddings + free Groq tier)
-📱 **Responsive** — Works on desktop, tablet, mobile
-🎨 **Beautiful** — Professional dark theme with animations
-🔄 **Scalable** — Docker + Kubernetes ready
-📊 **Monitorable** — Comprehensive logging and error tracking
-
----
-
-
-## 📄 License
-
-Open source. Built with ❤️ for RAG excellence.
-
-
-
+## Author
+Md. Sakibur Rahman
